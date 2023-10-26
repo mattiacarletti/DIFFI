@@ -44,11 +44,12 @@ def decision_function_single_tree(iforest, tree_idx, X):
 
 
 def _score_samples(iforest, tree_idx, X):
-    if iforest.n_features_ != X.shape[1]:
+    n_feat= X.shape[1]
+    if n_feat != X.shape[1]:
         raise ValueError("Number of features of the model must "
                          "match the input. Model n_features is {0} and "
                          "input n_features is {1}."
-                         "".format(iforest.n_features_, X.shape[1]))
+                         "".format(n_feat, X.shape[1]))
     return -_compute_chunked_score_samples(iforest, tree_idx, X)
 
 
@@ -79,4 +80,3 @@ def _compute_score_samples_single_tree(iforest, tree_idx, X, subsample_features)
     depths += (np.ravel(node_indicator.sum(axis=1)) + _average_path_length(n_samples_leaf) - 1.0)
     scores = 2 ** (-depths / (1 * _average_path_length([iforest.max_samples_])))
     return scores
-
