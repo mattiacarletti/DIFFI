@@ -1,0 +1,12 @@
+#GIT IGNORE FILE 
+
+#Ignore settings.json
+
+.vscode/
+.vscode/settings.json
+
+# Ignore the pycache folder
+
+__pycache__/
+*.pyc
+
