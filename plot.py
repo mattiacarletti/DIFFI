@@ -10,7 +10,7 @@ from tqdm import tqdm
 import pickle
 from interpretability_module import *
 
-def compute_local_importances(model, X: pd.DataFrame,name: str,pwd_imp_score: str = os.getcwd(), pwd_plt_data: str = os.getcwd()) -> tuple[np.array,dict]:
+def compute_local_importances(model, X: pd.DataFrame,name: str,pwd_imp_score: str = os.getcwd(), pwd_plt_data: str = os.getcwd()) -> tuple[np.array,dict,str,str]:
     """
     Collect useful information that will be successively used by the plt_importances_bars,plt_global_importance_bar and plt_feat_bar_plot
     functions. 
@@ -25,15 +25,16 @@ def compute_local_importances(model, X: pd.DataFrame,name: str,pwd_imp_score: st
     Returns:
         imps: 2-dimensional array containing the local Feature Importance values for the samples of the input dataset X. The array is also locally saved in a pkl file for the sake of reproducibility.
         plt_data: Dictionary containig the average Importance Scores values, the feature order and the standard deviations on the Importance Scores. The dictionary is also locally saved in a pkl file for the sake of reproducibility.
-                
+        path_fi: Path of the pkl file containing the Importance Scores
+        path_plt_data: Path of the pkl file containing the plt data        
     """
 
     name='LFI_'+name
     fi,_,_=local_diffi_batch(model,X)
 
     # Save the Importance Scores in a pkl file
-    path = pwd_imp_score + '\\imp_score_' + name + '.pkl'
-    with open(path, 'wb') as fl:
+    path_fi = pwd_imp_score + '\\imp_score_' + name + '.pkl'
+    with open(path_fi, 'wb') as fl:
         pickle.dump(fi,fl)
 
     """ 
@@ -54,14 +55,14 @@ def compute_local_importances(model, X: pd.DataFrame,name: str,pwd_imp_score: st
               'std': std_imp[mean_imp.argsort()]}
     
     # Save the plt_data dictionary in a pkl file
-    path = pwd_plt_data + '\\plt_data_' + name + '.pkl'
-    with open(path, 'wb') as fl:
+    path_plt_data = pwd_plt_data + '\\plt_data_' + name + '.pkl'
+    with open(path_plt_data, 'wb') as fl:
         pickle.dump(plt_data,fl)
     
 
-    return fi,plt_data
+    return fi,plt_data,path_fi,path_plt_data
 
-def compute_global_importances(model, X: pd.DataFrame, n_runs:int, name: str,pwd_imp_score: str = os.getcwd(), pwd_plt_data: str = os.getcwd()) -> tuple[np.array,dict]:
+def compute_global_importances(model, X: pd.DataFrame, n_runs:int, name: str,pwd_imp_score: str = os.getcwd(), pwd_plt_data: str = os.getcwd()) -> tuple[np.array,dict,str,str]:
     """
     Collect useful information that will be successively used by the plt_importances_bars,plt_global_importance_bar and plt_feat_bar_plot
     functions. 
@@ -77,7 +78,8 @@ def compute_global_importances(model, X: pd.DataFrame, n_runs:int, name: str,pwd
     Returns:
         imps: 2-dimensional array containing the local Feature Importance values for the samples of the input dataset X. The array is also locally saved in a pkl file for the sake of reproducibility.
         plt_data: Dictionary containig the average Importance Scores values, the feature order and the standard deviations on the Importance Scores. The dictionary is also locally saved in a pkl file for the sake of reproducibility.
-                
+        path_fi: Path of the pkl file containing the Importance Scores
+        path_plt_data: Path of the pkl file containing the plt data    
     """
 
     name='GFI_'+name
@@ -87,8 +89,8 @@ def compute_global_importances(model, X: pd.DataFrame, n_runs:int, name: str,pwd
         fi[i,:],_=diffi_ib(model,X)
 
     # Save the Importance Scores in a pkl file
-    path = pwd_imp_score + '\\imp_score_' + name + '.pkl'
-    with open(path, 'wb') as fl:
+    path_fi = pwd_imp_score + '\\imp_score_' + name + '.pkl'
+    with open(path_fi, 'wb') as fl:
         pickle.dump(fi,fl)
         
 
@@ -103,12 +105,12 @@ def compute_global_importances(model, X: pd.DataFrame, n_runs:int, name: str,pwd
               'std': std_imp[mean_imp.argsort()]}
     
     # Save the plt_data dictionary in a pkl file
-    path = pwd_plt_data + '\\plt_data_' + name + '.pkl'
-    with open(path, 'wb') as fl:
+    path_plt_data = pwd_plt_data + '\\plt_data_' + name + '.pkl'
+    with open(path_plt_data, 'wb') as fl:
         pickle.dump(plt_data,fl)
     
 
-    return fi,plt_data
+    return fi,plt_data,path_fi,path_plt_data
 
 def plt_importances_bars(importances: np.array, name: str, dim: int, pwd: str =os.getcwd(),f: int = 6,is_local:bool =True,save: bool =True):
     """
