@@ -15,4 +15,5 @@ __pycache__/
 /tests/test_imp_score_local/*
 /tests/test_plt_data_local/*
 /tests/test_plt_data_global/*
+/tests/test_plots/*
 
