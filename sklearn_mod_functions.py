@@ -44,7 +44,7 @@ def decision_function_single_tree(iforest, tree_idx, X):
 
 
 def _score_samples(iforest, tree_idx, X):
-    n_feat= X.shape[1]
+    n_feat= iforest.n_features_in_
     if n_feat != X.shape[1]:
         raise ValueError("Number of features of the model must "
                          "match the input. Model n_features is {0} and "
