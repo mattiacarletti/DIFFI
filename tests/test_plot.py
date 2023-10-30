@@ -197,11 +197,6 @@ def test_plot_importances_bars():
     assert bars1.shape == (imps.shape[1],imps.shape[1])
     assert np.all(bars1.sum()==100) == True
 
-    """
-    Comaparison with the expected image. Convert the images in png and compare
-    their pixel values using the Pillow library -> see ChatGPT. 
-    """
-
 def test_plt_feat_bar_plot():
 
     # We need the plt_data array: let's consider the global case with plt_data_GFI_glass.pkl and 
@@ -239,11 +234,10 @@ def test_plt_feat_bar_plot():
     assert ax3.get_xlabel() == 'Importance Score'
     #Check that the y label is correct
     assert ax3.get_ylabel() == 'Features'
-    #Check that the xtick  and y tick labels are correct
+    #Check that the xtick  and ytick labels are correct
     assert np.all(np.array(y_tick_labels_local).astype('float')>=len(y_tick_labels2_local)-1) == False
     assert np.all(np.array(y_tick_labels_global).astype('float')>=len(y_tick_labels2_global)-1) == False
-    
-    assert True
+
 
 def test_plot_importance_map():
 
