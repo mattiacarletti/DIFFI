@@ -1,5 +1,5 @@
 # Interpretable Anomaly Detection with DIFFI: Depth-based Isolation Forest Feature Importance
-Code for the paper "[Interpretable Anomaly Detection with DIFFI: Depth-based Isolation Forest Feature Importance](https://arxiv.org/abs/2007.11117)". 
+Code for the paper "[Interpretable Anomaly Detection with DIFFI: Depth-based Isolation Forest Feature Importance]([https://arxiv.org/abs/2007.11117](https://www.sciencedirect.com/science/article/abs/pii/S0952197622007205))". 
 
 ![overview](./images/overview.png)
 
