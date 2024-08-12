@@ -1,0 +1,24 @@
+#GIT IGNORE FILE 
+
+#Ignore settings.json
+
+.vscode/
+.vscode/settings.json
+
+# Ignore the pycache folder
+
+__pycache__/
+*.pyc
+
+# Ignore the imp_score and plt_data folders created in the unit tests
+/tests/test_imp_score_global/*
+/tests/test_imp_score_local/*
+/tests/test_plt_data_local/*
+/tests/test_plt_data_global/*
+/tests/test_plots/*
+
+# Ignore the images,imp_scores and plt_data folders
+images/*
+imp_scores/*
+plt_data/*
+
